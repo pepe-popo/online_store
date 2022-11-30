@@ -1,0 +1,37 @@
+.modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none; /*чтобы модальное окно не перекрывало возможность взаимодействия с другими элементами*/
+    transition: .4s;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal_container {
+    max-width: 80%;
+    max-height: 80%;
+    padding: 20px;
+    border-radius: 9px;
+    background-color: white;
+    transform: scale(0.1);
+    transition: 0.4s;
+    min-width: 15vw;
+    box-shadow: 0 2px 22px 0 rgba(10, 10, 10, 0.22);
+    overflow: scroll;
+    overflow-x:hidden;
+}
+
+.modal_container.active {
+    transform: scale(1);
+}

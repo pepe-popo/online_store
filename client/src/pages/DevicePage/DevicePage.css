@@ -1,0 +1,62 @@
+.devicePage_container {
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 105px;
+}
+
+.deviceItem {
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 16%);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr 2fr 3fr 3fr;
+}
+
+.deviceImage {
+    margin: auto;
+    grid-column: 1/2;
+    grid-row:2/6;
+}
+
+.deviceName {
+    margin-left: 5px;
+    margin-top: 5px;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    font-size: 25px;
+}
+
+.deviceRating {
+    margin-top: 5px;
+    margin-left: 5px;
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+
+.devicePrice {
+    margin-top: 5px;
+    margin-left: 5px;
+    grid-column: 2/3;
+    grid-row: 4/5;
+}
+
+.deviceInfo {
+    margin-top: 15px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 16%);
+    border-radius: 8px;
+    max-width: 1180px;
+    display: flex;
+    flex-direction: column;
+}
+
+.deviceInfoRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.deviceInfoRow p {
+    margin: 15px;
+}

@@ -1,0 +1,6 @@
+body{
+    margin:0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    background-color: #f6f6f6;
+}

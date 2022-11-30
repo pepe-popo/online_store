@@ -1,0 +1,20 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 25px;
+}
+th, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+table input {
+    width: 95%;
+    height: 95%;
+    font-size: 25px;
+}
+table button {
+    font-size: 25px;
+    margin-left: 2px;
+    margin-right: 2px;
+}

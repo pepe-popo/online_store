@@ -1,0 +1,19 @@
+.shop_container {
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 105px;
+}
+
+.shop_top {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.shop_bot {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1180px;
+    
+}
