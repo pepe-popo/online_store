@@ -12,11 +12,12 @@ function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState({});
   const [sections, setSections] = useState([]);
+  const [types, setTypes] = useState([]);
 
 
   const check = async () => {
     const response = await authFetching('user/auth')
-    .then(data => data.json());
+      .then(data => data.json());
     if (response.token) {
       localStorage.setItem('token', response.token);
       setIsAuth(true);
@@ -25,13 +26,15 @@ function App() {
 
   useEffect(() => {
     nonAuthFetching('section/getAll')
-      .then(data => setSections(data))
+      .then(data => setSections(data));
+    nonAuthFetching('type/getAll')
+      .then(data => setTypes(data));
     check();
   }, [])
 
 
   return (
-    <Context.Provider value={{ sections, setSections }}>
+    <Context.Provider value={{ sections, setSections, types, setTypes }}>
       <BrowserRouter>
         <Header isAuth={isAuth} setIsAuth={setIsAuth} setUser={setUser} />
         <AppRouter isAuth={isAuth} />

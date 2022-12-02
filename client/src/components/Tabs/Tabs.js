@@ -1,17 +1,23 @@
 import React from "react";
 import './Tabs.css'
 import { useState } from "react";
+import { nonAuthFetching } from "../../http/Index";
 
-const Tabs = ({ sections, types }) => {
-    const [active, setActive] = useState(null);
+const Tabs = ({ sections }) => {
+    const [sectionId, setSectionId] = useState(null);
     const [visibleContent, setVisibleContent] = useState([])
+
+
+
 
     return (
         <div className="tabs_wrapper">
             <div
                 onClick={(event) => {
-                    active === event.target.id ? setActive(null) : setActive(event.target.id);
-                    setVisibleContent(types.filter(type => event.target.id === type.sectionId));
+                    sectionId === event.target.id ? setSectionId(null) : setSectionId(event.target.id); // при клике помещаю id раздела в стейт sectionId
+                    nonAuthFetching(`type/getAll/${event.target.id}`)
+                    .then(data => setVisibleContent(data))
+                        
                 }}
                 className="tabs_container">
                 {sections.map(({ id, name }) =>
@@ -25,7 +31,7 @@ const Tabs = ({ sections, types }) => {
                 )}
             </div>
             <div
-                className={active ? "tabs_content_container visible" : "tabs_content_container hidden"}>
+                className={sectionId ? "tabs_content_container visible" : "tabs_content_container hidden"}>
                 {visibleContent.map(({ id, name }) =>
                     <a href="/" key={id} className="tabs_content">
                         {name}
