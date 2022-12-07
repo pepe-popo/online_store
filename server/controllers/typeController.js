@@ -1,34 +1,36 @@
 const connection = require('../db');
+const TypeService = require('../services/typeService.js');
+const ApiError = require('../Error/ApiError');
 
 class TypeController {
     async create(req, res, next) {
-        await connection.query("INSERT INTO type (name, sectionId) VALUES (?, ?)", [req.body.name, req.body.sectionId])
+        await TypeService.create(req.body)
             .then(data => res.json(data))
-            .catch(error => res.status(500).json(error))
+            .catch(error => next(ApiError.badRequest(error.message)))
     }
 
     async edit(req, res, next) {
-        await connection.query("UPDATE type SET name = ? WHERE name = ? ", [req.body.newName, req.body.name])
+        await TypeService.edit(req.body)
             .then(data => res.json(data))
-            .catch(error => res.status(500).json(error))
+            .catch(error => next(ApiError.badRequest(error.message)))
     }
 
     async delete(req, res, next) {
-        await connection.query("DELETE FROM type WHERE id = ?", [req.body.id])
+        await TypeService.delete(req.body)
+            .then(data => res.json(data))
+            .catch(error => next(ApiError.badRequest(error.message)))
+    }
+
+    async getAllId(req, res, next) {
+        await TypeService.getAllId(req.params)
             .then(data => res.json(data))
             .catch(error => res.status(500).json(error))
     }
 
-    async getAllId(req, res, next) {
-        const types = await connection.query("SELECT * FROM type WHERE sectionId = ?", [req.params.id])
-            .catch(error => console.log(error))
-        return res.json(types[0])
-    }
-
     async getAll(req, res, next) {
-        const types = await connection.query("SELECT * FROM type")
-            .catch(error => console.log(error));
-        return res.json(types[0]);
+        await TypeService.getAll()
+            .then(data => res.json(data))
+            .catch(error => res.status(500).json(error))
     }
 }
 

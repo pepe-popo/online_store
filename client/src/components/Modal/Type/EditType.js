@@ -46,7 +46,7 @@ const EditType = ({ active, setActive }) => {
                 <tr>
                     <td>id</td>
                     <td>
-                        <input onChange={(event) => setTypeName(event.target.value)} className="typeName" placeholder="Введите название"></input>
+                        <input value={typeName} onChange={(event) => setTypeName(event.target.value)} className="typeName" placeholder="Введите название"></input>
                     </td>
                     <td>
                         <select

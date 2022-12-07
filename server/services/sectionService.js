@@ -2,7 +2,7 @@ const connection = require('../db');
 
 class SectionService {
     async create(body) {
-        if (body.name.length < 1) {
+        if (!body.name) {
             throw new Error('Название не может быть пустым')
         }
         const createdSection = await connection.query("INSERT INTO section (name) VALUES (?)", [body.name])
@@ -10,6 +10,9 @@ class SectionService {
     };
 
     async delete(body) {
+        if(!body.id){
+            throw new Error('поле id не может быть пустым')
+        }
         const deletedSection = await connection.query("DELETE FROM section WHERE id = ?", [body.id])
         return deletedSection;
     }

@@ -1,4 +1,3 @@
-const connection = require('../db');
 const SectionService = require('../services/sectionService.js');
 const ApiError = require('../Error/ApiError');
 
@@ -12,7 +11,7 @@ class SectionController {
     async delete(req, res, next) {
         await SectionService.delete(req.body)
             .then(data => res.json(data))
-            .catch(error => res.status(500).json(error))
+            .catch(error => next(ApiError.badRequest(error.message)))
     }
 
     async edit(req, res, next) {
