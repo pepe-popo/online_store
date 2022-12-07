@@ -1,27 +1,29 @@
 const connection = require('../db');
+const SectionService = require('../services/sectionService.js');
+const ApiError = require('../Error/ApiError');
 
 class SectionController {
     async create(req, res, next) {
-       const response = await connection.query("INSERT INTO section (name) VALUES (?)", [req.body.name])
-        .catch(error => console.log(error))
-        res.json(response)
+       await SectionService.create(req.body)
+            .then(data => res.json(data))
+            .catch(error => next(ApiError.badRequest(error.message)))
     };
 
     async delete(req, res, next) {
-        const response = await connection.query("DELETE FROM section WHERE id = ?", [req.body.id])
-        .catch(error => console.log(error))
-        return res.json(response);
+        await SectionService.delete(req.body)
+            .then(data => res.json(data))
+            .catch(error => res.status(500).json(error))
     }
 
     async edit(req, res, next) {
-        const response = await connection.query("UPDATE section SET name = ? WHERE name = ? ", [req.body.newName, req.body.name])
-        .catch(error => console.log(error))
-        return res.json(response);
+        await SectionService.edit(req.body)
+            .then(data => res.json(data))
+            .catch(error => next(ApiError.badRequest(error.message)))
     }
     async getAll(req, res) {
-
-        const sections = await connection.query("SELECT * FROM section");
-        return res.json(sections[0]);
+        await SectionService.getAll()
+        .then(data => res.json(data))
+        .catch(error => res.status(500).json(error))
     }
 }
 

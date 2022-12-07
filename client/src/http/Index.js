@@ -21,8 +21,9 @@ export async function authFetching(url, method = 'GET', body = null) {
         },
         body:body
     })
+    .then(data => data.json())
     .catch(error => console.log(error))
-    //.then(data => data.json());
+    
     return res;
 }
 

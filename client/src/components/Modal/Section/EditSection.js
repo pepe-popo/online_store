@@ -11,7 +11,7 @@ const EditSection = ({ active, setActive }) => {
 
     const addSection = async () => {
         if (sectionName) {
-            await authFetching('section/create', 'POST', { name: sectionName });
+            await authFetching('section/create', 'POST', { name: sectionName })
             setSectionName('');
         } else {
             alert("Поле не может быть пустым!")

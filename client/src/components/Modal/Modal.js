@@ -1,6 +1,6 @@
 import React from "react";
 import './Modal.css';
-
+/* Переделать модальное окно, чтобы подложка не была родителем контентной части*/
 const Modal = ({active, setActive, children}) => {
     return (
         <div className={active ? "modal active" : "modal"} onClick={() => {

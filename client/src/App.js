@@ -17,7 +17,6 @@ function App() {
 
   const check = async () => {
     const response = await authFetching('user/auth')
-      .then(data => data.json());
     if (response.token) {
       localStorage.setItem('token', response.token);
       setIsAuth(true);
