@@ -1,4 +1,3 @@
-const connection = require('../db');
 const TypeService = require('../services/typeService.js');
 const ApiError = require('../Error/ApiError');
 

@@ -20,6 +20,7 @@ const Header = ({ isAuth, setIsAuth }) => {
     const registration = async (email, password) => {
             const response = await nonAuthFetching('user/registration', 'POST', { email: email, password: password, role: 'USER' })
             if(response.token) {
+                
                 localStorage.setItem('token', response.token)
                 setIsModalActive(false);
                 setIsAuth(true);
