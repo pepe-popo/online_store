@@ -2,32 +2,32 @@ const TypeService = require('../services/typeService.js');
 const ApiError = require('../Error/ApiError');
 
 class TypeController {
-    async create(req, res, next) {
-        await TypeService.create(req.body)
+    create(req, res, next) {
+        TypeService.create(req.body)
             .then(data => res.json(data))
             .catch(error => next(ApiError.badRequest(error.message)))
     }
 
-    async edit(req, res, next) {
-        await TypeService.edit(req.body)
+    edit(req, res, next) {
+        TypeService.edit(req.body)
             .then(data => res.json(data))
             .catch(error => next(ApiError.badRequest(error.message)))
     }
 
-    async delete(req, res, next) {
-        await TypeService.delete(req.body)
+    delete(req, res, next) {
+        TypeService.delete(req.body)
             .then(data => res.json(data))
             .catch(error => next(ApiError.badRequest(error.message)))
     }
 
-    async getAllId(req, res, next) {
-        await TypeService.getAllId(req.params)
+    getAllId(req, res, next) {
+        TypeService.getAllId(req.params)
             .then(data => res.json(data))
             .catch(error => res.status(500).json(error))
     }
 
-    async getAll(req, res, next) {
-        await TypeService.getAll()
+    getAll(req, res, next) {
+        TypeService.getAll()
             .then(data => res.json(data))
             .catch(error => res.status(500).json(error))
     }

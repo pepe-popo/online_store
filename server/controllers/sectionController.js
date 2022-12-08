@@ -2,27 +2,27 @@ const SectionService = require('../services/sectionService.js');
 const ApiError = require('../Error/ApiError');
 
 class SectionController {
-    async create(req, res, next) {
-       await SectionService.create(req.body)
+    create(req, res, next) {
+        SectionService.create(req.body)
             .then(data => res.json(data))
             .catch(error => next(ApiError.badRequest(error.message)))
     };
 
-    async delete(req, res, next) {
-        await SectionService.delete(req.body)
+    delete(req, res, next) {
+        SectionService.delete(req.body)
             .then(data => res.json(data))
             .catch(error => next(ApiError.badRequest(error.message)))
     }
 
-    async edit(req, res, next) {
-        await SectionService.edit(req.body)
+    edit(req, res, next) {
+        SectionService.edit(req.body)
             .then(data => res.json(data))
             .catch(error => next(ApiError.badRequest(error.message)))
     }
-    async getAll(req, res) {
-        await SectionService.getAll()
-        .then(data => res.json(data))
-        .catch(error => res.status(500).json(error))
+    getAll(req, res) {
+        SectionService.getAll()
+            .then(data => res.json(data))
+            .catch(error => res.status(500).json(error))
     }
 }
 
