@@ -7,9 +7,9 @@ export async function nonAuthFetching(url, method = 'GET', body = null) {
             'Content-Type': 'application/json'
         }
     })
-        .then(data => data.json())
+        const data = await res.json()
+        return data
 
-    return res;
 }
 export async function authFetching(url, method = 'GET', body = null) {
     body = body ? JSON.stringify(body) : null;
@@ -21,10 +21,8 @@ export async function authFetching(url, method = 'GET', body = null) {
         },
         body:body
     })
-    .then(data => data.json())
-    .catch(error => console.log(error))
-    
-    return res;
+    const data = await res.json()
+    return data;
 }
 
 

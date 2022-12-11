@@ -15,7 +15,7 @@ function App() {
   const [types, setTypes] = useState([]);
 
 
-  const check = async () => {
+  const check = async() => {
     const response = await authFetching('user/auth')
     if (response.token) {
       localStorage.setItem('token', response.token);

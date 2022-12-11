@@ -1,6 +1,4 @@
 const ApiError = require('../Error/ApiError');
-const jwt = require('jsonwebtoken');
-const config = require('config');
 const UserService = require('../services/userService.js');
 
 class UserController {

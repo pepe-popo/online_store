@@ -5,9 +5,13 @@ const config = require('config');
 
 class UserService {
     async registration(body) {
-        const { email, password, role } = body;
+        const { email, password } = body;
+        let role = body.role? body.role : 'USER';
         if (!email || !password) {
             throw new Error('Неверный логин или пароль')
+        }
+        if(!/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g.test(password)){
+            throw new Error('Пароль слишком простой');
         }
         const isUser = await connection.query(`SELECT * FROM user WHERE email = "${email}"`);
         if (isUser[0][0]) {
@@ -31,6 +35,9 @@ class UserService {
 
     async login(body) {
         const { email, password } = body;
+        if(!email || !password) {
+            throw new Error('Неверный логин или пароль')
+        }
         const user = await connection.query(`SELECT * FROM user WHERE email = "${email}"`);
         if (!user[0][0]) {
             throw new Error('Неверный логин или пароль')
