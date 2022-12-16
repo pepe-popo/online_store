@@ -18,8 +18,7 @@ module.exports = function (role) {
             req.user = decoded;
             next();
         } catch (err) {
-            console.log(err)
-            res.status(401).json({ message: "Пользователь не авторизован2" });
+            res.status(401).json({ message: "Пользователь не авторизован" });
         }
     }
 }
