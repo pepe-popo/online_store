@@ -13,28 +13,28 @@ describe('registration', () => {
         const body = { email: 'Test2@test.ru', password: '123' }
         await expect(UserService.registration(body))
             .rejects
-            .toThrow('Пароль слишком простой')
+            .toThrow('password is too simple')
     })
 
     test('нет свойств email и password при регистрации', async () => {
         const body = { someStr: 'qwe' }
         await expect(UserService.registration(body))
             .rejects
-            .toThrow('Неверный логин или пароль')
+            .toThrow('wrong login or password')
     })
 
     test('email занят при регистрации', async () => {
         const body = { email: 'forTest@hehe', password: 'TLd0smZNdr9cm!' }
         await expect(UserService.registration(body))
             .rejects
-            .toThrow('email занят')
+            .toThrow('email taken')
     })
 
     test('пустой body при регистрации', async () => {
         const body = {}
         await expect(UserService.registration(body))
             .rejects
-            .toThrow('Неверный логин или пароль')
+            .toThrow('wrong login or password')
     })
 
     afterAll(() => {
@@ -53,21 +53,21 @@ describe('login', () => {
         const body = {}
         await expect(UserService.login(body))
             .rejects
-            .toThrow('Неверный логин или пароль')
+            .toThrow('wrong login or password')
     })
 
     test('несуществующий email при логине', async () => {
         const body = { email: 'asuidfaiuhsdf8ah@123', password: 'asdasd' }
         await expect(UserService.login(body))
             .rejects
-            .toThrow('Неверный логин или пароль')
+            .toThrow('wrong login or password')
     })
 
     test('Неправильный пароль при логине', async () => {
         const body = { email: 'forTests@hehe', password: '12345678' }
         await expect(UserService.login(body))
             .rejects
-            .toThrow('Неверный логин или пароль')
+            .toThrow('wrong login or password')
     })
     afterAll(() => {
         connection.end()

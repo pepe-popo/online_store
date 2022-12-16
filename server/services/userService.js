@@ -8,14 +8,14 @@ class UserService {
         const { email, password } = body;
         let role = body.role? body.role : 'USER';
         if (!email || !password) {
-            throw new Error('Неверный логин или пароль')
+            throw new Error('wrong login or password')
         }
         if(!/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g.test(password)){
-            throw new Error('Пароль слишком простой');
+            throw new Error('password is too simple');
         }
         const isUser = await connection.query(`SELECT * FROM user WHERE email = "${email}"`);
         if (isUser[0][0]) {
-            throw new Error('email занят');
+            throw new Error('email taken');
         }
         const hashPassword = await bcrypt.hash(password, 7);
         await connection.query(`INSERT INTO user (email, password, role) VALUES ("${email}", "${hashPassword}", "${role}")`);
@@ -36,15 +36,15 @@ class UserService {
     async login(body) {
         const { email, password } = body;
         if(!email || !password) {
-            throw new Error('Неверный логин или пароль')
+            throw new Error('wrong login or password')
         }
         const user = await connection.query(`SELECT * FROM user WHERE email = "${email}"`);
         if (!user[0][0]) {
-            throw new Error('Неверный логин или пароль')
+            throw new Error('wrong login or password')
         }
         let comparePassword = bcrypt.compareSync(password, user[0][0].password);
         if (!comparePassword) {
-            throw new Error('Неверный логин или пароль')
+            throw new Error('wrong login or password')
         }
         const token = jwt.sign(
             {
