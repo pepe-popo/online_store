@@ -14,7 +14,7 @@ class SectionService {
     };
 
     async delete(body) {
-        if (!body.id) {
+        if (!body.id || isNaN(+body.id)) {
             throw new Error('id cannot be empty')
         }
         const deletedSection = await connection.query("DELETE FROM section WHERE id = ?", [body.id])

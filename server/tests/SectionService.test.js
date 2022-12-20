@@ -1,7 +1,7 @@
 const connection = require('../db');
 const SectionService = require('../services/sectionService');
 
-describe('/section/getAll', () => {
+describe('get section requests', () => {
     test('/section/getAll', async () => {
         const response = await SectionService.getAll();
 
@@ -52,6 +52,14 @@ describe('/section/delete', () => {
 
     test('section/delete некорректный id или его отсутствие', async () => {
         const body = { name: 'test' }
+        await expect(SectionService.delete(body))
+            .rejects
+            .toThrow('id cannot be empty')
+
+    })
+
+    test('section/delete некорректный id или его отсутствие', async () => {
+        const body = { name: '' }
         await expect(SectionService.delete(body))
             .rejects
             .toThrow('id cannot be empty')
