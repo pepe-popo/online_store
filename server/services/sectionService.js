@@ -17,31 +17,31 @@ class SectionService {
         if (!body.id || isNaN(+body.id)) {
             throw new Error('id cannot be empty')
         }
-        const deletedSection = await connection.query("DELETE FROM section WHERE id = ?", [body.id])
+        const deletedSection = await connection.query("DELETE FROM section WHERE id = ?", [body.id]);
         return deletedSection;
     }
 
     async edit(body) {
         if (!body.newName || !body.name) {
-            throw new Error('name cannot be empty')
+            throw new Error('name cannot be empty');
         }
 
         const isDuplicateName = await connection.query("SELECT * FROM section WHERE name = ?", body.newName);
         if (isDuplicateName[0][0]) {
-            throw new Error('name taken')
+            throw new Error('name taken');
         }
 
         const isExistName = await connection.query("SELECT * FROM section WHERE name = ?", body.name);
         if (!isExistName[0][0]) {
-            throw new Error('name not found')
+            throw new Error('name not found');
         }
 
-        const editedSection = await connection.query("UPDATE section SET name = ? WHERE name = ? ", [body.newName, body.name])
+        const editedSection = await connection.query("UPDATE section SET name = ? WHERE name = ? ", [body.newName, body.name]);
         return editedSection;
     }
     async getAll() {
         const sections = await connection.query("SELECT * FROM section");
-        return sections[0]
+        return sections[0];
     }
 }
 

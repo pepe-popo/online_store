@@ -43,14 +43,6 @@ const Header = ({ isAuth, setIsAuth }) => {
         }
     }
 
-    const check = async () => {
-        const response = await authFetching('user/auth', 'GET');
-        if(response.token) {
-            localStorage.setItem('token', response.token);
-            return jwt_decode(response.token)
-        }
-    }
-
     return (
         <header>
             <div className="header_top">

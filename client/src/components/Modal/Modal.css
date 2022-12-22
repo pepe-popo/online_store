@@ -28,8 +28,7 @@
     transition: 0.4s;
     min-width: 15vw;
     box-shadow: 0 2px 22px 0 rgba(10, 10, 10, 0.22);
-    overflow: scroll;
-    overflow-x:hidden;
+    overflow-x:auto;
 }
 
 .modal_container.active {
