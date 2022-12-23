@@ -6,7 +6,7 @@ import { Context } from "../../../context";
 
 const EditSection = ({ active, setActive }) => {
     const [sectionName, setSectionName] = useState('');
-    const { sections, setSections } = useContext(Context);
+    const { sections, setSections, setTypes } = useContext(Context);
 
 
     const addSection = async () => {
@@ -24,13 +24,13 @@ const EditSection = ({ active, setActive }) => {
 
     const editSection = async (name) => {
         let newName = prompt('Редактировать', name);
-        if(newName && name) {
-            await authFetching('section/edit', 'PATCH', { name: name, newName: newName });
+        if (newName && name) {
+            await authFetching('section/edit', 'PUT', { name: name, newName: newName });
         }
     }
 
     const getSections = async () => {
-       return await nonAuthFetching('section/getAll');
+        return await nonAuthFetching('section/getAll');
     }
 
 
@@ -55,9 +55,9 @@ const EditSection = ({ active, setActive }) => {
                     </td>
                     <td>
                         <button onClick={async () => {
-                            await addSection()
-                            getSections()
-                                .then(data => setSections(data));
+                            await addSection();
+                            const sections = await getSections();
+                            setSections(sections);
                         }}>добавить</button>
                     </td>
                 </tr>
@@ -67,14 +67,16 @@ const EditSection = ({ active, setActive }) => {
                         <td>{name}</td>
                         <td>
                             <button onClick={async () => {
-                                await deleteSection(id)
-                                getSections()
-                                    .then(data => setSections(data));
+                                await deleteSection(id);
+                                const sections = await getSections();
+                                setSections(sections);
+                                const types = await nonAuthFetching('type/getAll');
+                                setTypes(types);
                             }}>удалить</button>
                             <button onClick={async () => {
                                 await editSection(name);
-                                getSections()
-                                    .then(data => setSections(data));
+                                const sections = await getSections();
+                                setSections(sections);
                             }}>редактировать</button>
                         </td>
                     </tr>

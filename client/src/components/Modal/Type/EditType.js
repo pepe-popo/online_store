@@ -21,7 +21,7 @@ const EditType = ({ active, setActive }) => {
     const editType = async (name) => {
         let newName = prompt('Редактировать', name);
         if(newName && name) {
-            await authFetching('type/edit', 'PATCH', { name: name, newName: newName });
+            await authFetching('type/edit', 'PUT', { name: name, newName: newName });
         }
     }
 
@@ -74,7 +74,7 @@ const EditType = ({ active, setActive }) => {
                         <td>
                             {sections.find((section) => 
                                 section.id === sectionId
-                            ).name}
+                            )?.name} {/*без проверки на наличие name, при удалении раздела фронт падает*/}
                         </td>
                         <td>
                             <button onClick={async () => {

@@ -1,6 +1,6 @@
 export async function nonAuthFetching(url, method = 'GET', body = null) {
     body = body ? JSON.stringify(body) : null
-    const res = await fetch(`http://localhost:5000/nds-shop/api/${url}`, {
+    const res = await fetch(`nds-shop/api/${url}`, {
         method: method,
         body: body,
         headers: {
@@ -13,13 +13,13 @@ export async function nonAuthFetching(url, method = 'GET', body = null) {
 }
 export async function authFetching(url, method = 'GET', body = null) {
     body = body ? JSON.stringify(body) : null;
-    const res = await fetch(`http://localhost:5000/nds-shop/api/${url}`, {
+    const res = await fetch(`nds-shop/api/${url}`, {
         method: method, // GET, POST, PUT, DELETE, etc.
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body:body
+        body:body 
     })
     const data = await res.json()
     return data;
