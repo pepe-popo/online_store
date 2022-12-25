@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
-import { Context } from "../../../context";
-import Modal from "../Modal";
-import { authFetching, nonAuthFetching } from "../../../http/Index";
+import { Context } from "../../context";
+import { authFetching, nonAuthFetching } from "../../http/Index";
 import './EditType.css';
 
-const EditType = ({ active, setActive }) => {
+const EditType = () => {
     const { sections, types, setTypes } = useContext(Context);
     const [sectionId, setSectionId] = useState(null);
     const [typeName, setTypeName] = useState('')
@@ -20,7 +19,7 @@ const EditType = ({ active, setActive }) => {
 
     const editType = async (name) => {
         let newName = prompt('Редактировать', name);
-        if(newName && name) {
+        if (newName && name) {
             await authFetching('type/edit', 'PUT', { name: name, newName: newName });
         }
     }
@@ -34,7 +33,7 @@ const EditType = ({ active, setActive }) => {
     }
 
 
-    return <Modal active={active} setActive={setActive}>
+    return (
         <table>
             <tbody>
                 <tr><th colSpan="3">подразделы</th></tr>
@@ -72,7 +71,7 @@ const EditType = ({ active, setActive }) => {
                         <td>{id}</td>
                         <td>{name}</td>
                         <td>
-                            {sections.find((section) => 
+                            {sections.find((section) =>
                                 section.id === sectionId
                             )?.name} {/*без проверки на наличие name, при удалении раздела фронт падает*/}
                         </td>
@@ -81,12 +80,12 @@ const EditType = ({ active, setActive }) => {
                                 await deleteType(id)
                                 getSections()
                                     .then(data => setTypes(data));
-                                    }}>Удалить</button>
+                            }}>Удалить</button>
                         </td>
                         <td>
-                            <button onClick={async ()=>{
-                               await editType(name)
-                               getSections()
+                            <button onClick={async () => {
+                                await editType(name)
+                                getSections()
                                     .then(data => setTypes(data));
                             }}>Редактировать</button>
                         </td>
@@ -94,7 +93,8 @@ const EditType = ({ active, setActive }) => {
                 )}
             </tbody>
         </table>
-    </Modal>
+    )
+
 }
 
 export default EditType;

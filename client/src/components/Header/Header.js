@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Modal from '../Modal/Modal';
 import { SHOP_ROUTE, ADMIN_ROUTE } from '../../utils/consts';
 import './HeaderStyle.css';

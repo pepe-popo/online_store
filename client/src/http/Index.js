@@ -1,6 +1,6 @@
 export async function nonAuthFetching(url, method = 'GET', body = null) {
     body = body ? JSON.stringify(body) : null
-    const res = await fetch(`nds-shop/api/${url}`, {
+    const res = await fetch(`http://192.168.0.15:80/nds-shop/api/${url}`, {
         method: method,
         body: body,
         headers: {
@@ -13,7 +13,7 @@ export async function nonAuthFetching(url, method = 'GET', body = null) {
 }
 export async function authFetching(url, method = 'GET', body = null) {
     body = body ? JSON.stringify(body) : null;
-    const res = await fetch(`nds-shop/api/${url}`, {
+    const res = await fetch(`http://192.168.0.15:80/nds-shop/api/${url}`, {
         method: method, // GET, POST, PUT, DELETE, etc.
         headers: {
             'Content-Type': 'application/json',

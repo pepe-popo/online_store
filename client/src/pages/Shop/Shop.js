@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import './Shop.css';
-import Tabs from '../../components/Tabs/Tabs';
+import Catalog from '../../components/Catalog/Catalog';
 import DeviceList from '../../components/DeviceList/DeviceList';
 import { Context } from '../../context';
 
@@ -54,7 +54,7 @@ const Shop = () => {
         <div className='shop_container'>
             <div className='shop'>
                 <div className='shop_top'>
-                    <Tabs sections={sections} types={types}></Tabs>
+                    <Catalog sections={sections} types={types}></Catalog>
                 </div>
                 <div className='shop_bot'>
                     <DeviceList devices = {devices}>

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "../src/components/AppRouter/AppRouter";
@@ -7,7 +8,6 @@ import { Context } from "./context";
 import jwt_decode from 'jwt-decode';
 
 import './AppStyle.css';
-
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState({});

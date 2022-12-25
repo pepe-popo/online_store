@@ -1,10 +1,9 @@
 import React, { useState, useContext } from "react";
-import Modal from "../Modal";
 import './EditSection.css';
-import { authFetching, nonAuthFetching } from "../../../http/Index";
-import { Context } from "../../../context";
+import { authFetching, nonAuthFetching } from "../../http/Index";
+import { Context } from "../../context";
 
-const EditSection = ({ active, setActive }) => {
+const EditSection = () => {
     const [sectionName, setSectionName] = useState('');
     const { sections, setSections, setTypes } = useContext(Context);
 
@@ -34,7 +33,7 @@ const EditSection = ({ active, setActive }) => {
     }
 
 
-    return <Modal active={active} setActive={setActive}>
+    return (
         <table>
             <tbody>
                 <tr><th colSpan="2">разделы</th></tr>
@@ -83,7 +82,7 @@ const EditSection = ({ active, setActive }) => {
                 )}
             </tbody>
         </table>
-    </Modal>
+    )
 }
 
 export default EditSection;

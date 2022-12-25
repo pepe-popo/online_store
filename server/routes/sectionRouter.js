@@ -6,7 +6,7 @@ const router = new Router();
 
 router.post('/create', checkRoleMiddleware('ADMIN'), sectionController.create);
 router.delete('/delete', checkRoleMiddleware('ADMIN'), sectionController.delete);
-router.patch('/edit', checkRoleMiddleware('ADMIN'), sectionController.edit)
+router.put('/edit', checkRoleMiddleware('ADMIN'), sectionController.edit)
 router.get('/getAll', sectionController.getAll);
 
 
