@@ -73,38 +73,38 @@ describe('/section/delete', () => {
 describe('/section/edit', () => {
 
     test('section/edit корректные данные', async () => {
-        const body = { name: 'для изменения', newName: 'измененное название' };
-        await connection.query("INSERT INTO section (name) VALUES (?)", ['для изменения']);
+        const body = { id: 1162, newName: 'измененный раздел' };
         const response = await SectionService.edit(body);
         expect(response[0]).toHaveProperty('info', 'Rows matched: 1  Changed: 1  Warnings: 0');
     })
 
-    test('section/edit некорректные данные', async ()=> {
-        const body = {name: '', name2: 'test'};
+    test('section/edit некорректные данные', async () => {
+        const body = { name: '', name2: 'test' };
         await expect(SectionService.edit(body))
-        .rejects
-        .toThrow('name cannot be empty');
+            .rejects
+            .toThrow('id cannot be empty');
     })
 
-    test('section/edit занятое новое название', async ()=>{
+    test('section/edit занятое новое название', async () => {
         await connection.query("INSERT INTO section (name) VALUES (?)", ['занятое название']);
-        const body = {name: 'для изменения', newName: 'занятое название'}
+        const body = { id:1162, newName: 'занятое название' }
         await expect(SectionService.edit(body))
-        .rejects
-        .toThrow('name taken');
+            .rejects
+            .toThrow('name taken');
     })
 
-    test('section/edit несуществующее название', async ()=> {
-        const body = {name: 'unknownName', newName: 'coolName'};
+    test('section/edit несуществующий раздел', async () => {
+        const body = { id: 0, newName: 'coolName' };
         await expect(SectionService.edit(body))
-        .rejects
-        .toThrow('name not found');
+            .rejects
+            .toThrow('section not found');
     })
 
     afterAll(async () => {
-        await connection.query('DELETE FROM section WHERE name = ?', ['измененное название']);
-        await connection.query('DELETE FROM section WHERE name = ?', ['для изменения']);
+        await connection.query('UPDATE section SET name = "Тестовый раздел" WHERE id = 1162');
+        await connection.query('DELETE FROM section WHERE name = ?', ['измененный раздел']);
         await connection.query('DELETE FROM section WHERE name = ?', ['занятое название']);
-        await connection.end();;
+        await connection.end();
     })
-})
+}
+)

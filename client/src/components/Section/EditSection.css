@@ -1,19 +1,23 @@
-table {
+.editSection_container {
+    margin-top: 3%;
+}
+
+.sectionTable {
+    margin-top: 3px;
     border-collapse: collapse;
     width: 100%;
     font-size: 15px;
 }
-th, td {
+.sectionTable th, td {
     border: 1px solid black;
     padding: 5px;
 }
 
 .sectionName {
-    width: 95%;
-    height: 95%;
+    width: 15%;
     font-size: 15px;
 }
-table button {
+.editSection_container button {
     font-size: 15px;
     margin-left: 2px;
     margin-right: 2px;

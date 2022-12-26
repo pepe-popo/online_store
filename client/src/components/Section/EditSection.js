@@ -5,6 +5,9 @@ import { Context } from "../../context";
 
 const EditSection = () => {
     const [sectionName, setSectionName] = useState('');
+    const [newName, setNewName] = useState('');
+    const [mutableSectionId, setMutableSectionId] = useState(null);
+    const [isEditActive, setIsEditActive] = useState(false);
     const { sections, setSections, setTypes } = useContext(Context);
 
 
@@ -21,10 +24,9 @@ const EditSection = () => {
         await authFetching('section/delete', 'DELETE', { id: id });
     }
 
-    const editSection = async (name) => {
-        let newName = prompt('Редактировать', name);
-        if (newName && name) {
-            await authFetching('section/edit', 'PUT', { name: name, newName: newName });
+    const editSection = async (id) => {
+        if (newName && id) {
+            await authFetching('section/edit', 'PUT', { id: id, newName: newName });
         }
     }
 
@@ -34,54 +36,83 @@ const EditSection = () => {
 
 
     return (
-        <table>
-            <tbody>
-                <tr><th colSpan="2">разделы</th></tr>
-                <tr>
-                    <td>id</td>
-                    <td>название</td>
-                </tr>
-                <tr>
-                    <td>id</td>
-                    <td>
-                        <input
-                            className="sectionName"
-                            value={sectionName}
-                            onChange={
-                                (event) => setSectionName(event.target.value)}
-                            placeholder="Введите название">
-                        </input>
-                    </td>
-                    <td>
-                        <button onClick={async () => {
-                            await addSection();
-                            const sections = await getSections();
-                            setSections(sections);
-                        }}>добавить</button>
-                    </td>
-                </tr>
-                {sections.map(({ id, name }) =>
-                    <tr key={id}>
-                        <td>{id}</td>
-                        <td>{name}</td>
-                        <td>
-                            <button onClick={async () => {
-                                await deleteSection(id);
-                                const sections = await getSections();
-                                setSections(sections);
-                                const types = await nonAuthFetching('type/getAll');
-                                setTypes(types);
-                            }}>удалить</button>
-                            <button onClick={async () => {
-                                await editSection(name);
-                                const sections = await getSections();
-                                setSections(sections);
-                            }}>редактировать</button>
-                        </td>
+        <div className="editSection_container">
+            {isEditActive ?
+                <div className="editSection">
+                    <input
+                        className="editName"
+                        value={newName}
+                        onChange={
+                            (event) => setNewName(event.target.value)}
+                    >
+                    </input>
+
+                    <button onClick={async () => {
+                        await editSection(mutableSectionId);
+                        const sections = await getSections();
+                        setSections(sections);
+                    }}>сохранить
+                    </button>
+
+                    <button onClick={async () => {
+                        setIsEditActive(false);
+                        setMutableSectionId(null);
+                        
+                    }}>отменить
+                    </button>
+                </div>
+                :
+                <div className="addSection">
+                    <input
+                        className="sectionName"
+                        value={sectionName}
+                        onChange={
+                            (event) => setSectionName(event.target.value)}
+                        placeholder="Введите название">
+                    </input>
+
+                    <button onClick={async () => {
+                        await addSection();
+                        const sections = await getSections();
+                        setSections(sections);
+                    }}>добавить
+                    </button>
+                </div>
+            }
+            <table className="sectionTable">
+                <tbody>
+                    <tr><th colSpan="2">разделы</th></tr>
+                    <tr>
+                        <td>id</td>
+                        <td>название</td>
                     </tr>
-                )}
-            </tbody>
-        </table>
+
+                    {sections.map(({ id, name }) =>
+                        <tr key={id}>
+                            <td>{id}</td>
+                            <td>{name}</td>
+                            <td>
+                                <button onClick={async () => {
+                                    await deleteSection(id);
+                                    const sections = await getSections();
+                                    setSections(sections);
+                                    const types = await nonAuthFetching('type/getAll');
+                                    setTypes(types);
+                                }}>удалить</button>
+                            </td>
+                            <td>
+                                <button onClick={async () => {
+                                    setIsEditActive(true);
+                                    setMutableSectionId(id);
+                                    setNewName(name)
+                                }}>редактировать</button>
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </div>
+
     )
 }
 

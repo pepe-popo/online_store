@@ -22,8 +22,8 @@ class SectionService {
     }
 
     async edit(body) {
-        if (!body.newName || !body.name) {
-            throw new Error('name cannot be empty');
+        if (!body.newName || isNaN(+body.id)) {
+            throw new Error('id cannot be empty');
         }
 
         const isDuplicateName = await connection.query("SELECT * FROM section WHERE name = ?", body.newName);
@@ -31,12 +31,12 @@ class SectionService {
             throw new Error('name taken');
         }
 
-        const isExistName = await connection.query("SELECT * FROM section WHERE name = ?", body.name);
+        const isExistName = await connection.query("SELECT * FROM section WHERE id = ?", body.id);
         if (!isExistName[0][0]) {
-            throw new Error('name not found');
+            throw new Error('section not found');
         }
 
-        const editedSection = await connection.query("UPDATE section SET name = ? WHERE name = ? ", [body.newName, body.name]);
+        const editedSection = await connection.query("UPDATE section SET name = ? WHERE id = ? ", [body.newName, body.id]);
         return editedSection;
     }
     async getAll() {

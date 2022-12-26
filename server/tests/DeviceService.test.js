@@ -6,8 +6,8 @@ describe('create requests', () => {
         const body = {
             name: "test device",
             price: 300,
-            typeId: '9',
-            sectionId: 112
+            typeId: '225',
+            sectionId: 1162
         };
 
         const response = await DeviceServise.create(body);
@@ -18,8 +18,8 @@ describe('create requests', () => {
         const body = {
             name: "test device",
             price: 300,
-            typeId: '9',
-            sectionId: 112
+            typeId: '225',
+            sectionId: 1162
         };
 
         await expect(DeviceServise.create(body))
@@ -32,7 +32,7 @@ describe('create requests', () => {
             name: "test device",
             price: 300,
             typeId: '',
-            sectionId: 112
+            sectionId: 1162
         };
 
         await expect(DeviceServise.create(body))
@@ -45,7 +45,7 @@ describe('create requests', () => {
             name: "test device",
             price: 300,
             typeId: 'text',
-            sectionId: 112
+            sectionId: 1162
         };
 
         await expect(DeviceServise.create(body))
@@ -57,8 +57,8 @@ describe('create requests', () => {
         const body = {
             name: "test device",
             price: '300text',
-            typeId: '9',
-            sectionId: 112
+            typeId: '225',
+            sectionId: 1162
         }
 
         await expect(DeviceServise.create(body))
