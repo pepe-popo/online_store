@@ -1,3 +1,24 @@
-.typeName {
+.editType_container {
+    margin-top: 3%;
+}
+
+.typeTable {
+    margin-top: 3px;
+    border-collapse: collapse;
+    width: 100%;
     font-size: 15px;
+}
+.typeTable th, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.typeName {
+    width: 15%;
+    font-size: 15px;
+}
+.editType_container button {
+    font-size: 15px;
+    margin-left: 2px;
+    margin-right: 2px;
 }

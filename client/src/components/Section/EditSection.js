@@ -51,13 +51,13 @@ const EditSection = () => {
                         await editSection(mutableSectionId);
                         const sections = await getSections();
                         setSections(sections);
+                        setIsEditActive(false);
                     }}>сохранить
                     </button>
 
                     <button onClick={async () => {
                         setIsEditActive(false);
                         setMutableSectionId(null);
-                        
                     }}>отменить
                     </button>
                 </div>

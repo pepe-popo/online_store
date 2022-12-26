@@ -15,7 +15,7 @@ class TypeService {
     }
 
     async edit(body) {
-        if (!body.newName || !body.name) {
+        if (!body.newName || !body.id || !body.sectionId) {
             throw new Error('name cannot be empty')
         }
 
@@ -25,13 +25,13 @@ class TypeService {
             throw new Error('name taken')
         }
 
-        const isExistName = await connection.query("SELECT name FROM type WHERE name = ?", [body.name])
+        const isExistName = await connection.query("SELECT name FROM type WHERE id = ?", [body.id])
 
         if(!isExistName[0][0]?.name) {
-            throw new Error('name not found')
+            throw new Error('section not found')
         }
 
-        const editedType = await connection.query("UPDATE type SET name = ? WHERE name = ? ", [body.newName, body.name])
+        const editedType = await connection.query("UPDATE type SET name = ?, sectionId = ? WHERE id = ? ", [body.newName, body.sectionId, body.id])
         return editedType;
     }
 
