@@ -1,14 +1,15 @@
 const connection = require('../db');
+const ApiError = require('../Error/ApiError');
 
 class TypeService {
     async create(body) {
         if (!body.name || isNaN(+body.sectionId) || !body.sectionId) {
-            throw new Error('name or sectionId cannot be empty')
+            throw ApiError.badRequest('name or sectionId cannot be empty')
         }
 
         const isExistId = await connection.query("SELECT id FROM section WHERE id = ?", [body.sectionId])
         if (!isExistId[0][0]?.id) {
-            throw new Error('sectionId not found')
+            throw ApiError.badRequest('sectionId not found')
         }
         const createdType = await connection.query("INSERT INTO type (name, sectionId) VALUES (?, ?)", [body.name, body.sectionId])
         return createdType;
@@ -16,19 +17,19 @@ class TypeService {
 
     async edit(body) {
         if (!body.newName || !body.id || !body.sectionId) {
-            throw new Error('name cannot be empty')
+            throw ApiError.badRequest('name cannot be empty')
         }
 
         const isExistNewName = await connection.query("SELECT name FROM type WHERE name = ?", [body.newName])
 
         if(isExistNewName[0][0]?.name) {
-            throw new Error('name taken')
+            throw ApiError.badRequest('name taken')
         }
 
         const isExistName = await connection.query("SELECT name FROM type WHERE id = ?", [body.id])
 
         if(!isExistName[0][0]?.name) {
-            throw new Error('section not found')
+            throw ApiError.badRequest('section not found')
         }
 
         const editedType = await connection.query("UPDATE type SET name = ?, sectionId = ? WHERE id = ? ", [body.newName, body.sectionId, body.id])
@@ -37,13 +38,13 @@ class TypeService {
 
     async delete(body) {
         if (!body.id || isNaN(+body.id)) {
-            throw new Error('id cannot be empty');
+            throw ApiError.badRequest('id cannot be empty');
         }
 
         const isExistId = await connection.query("SELECT id FROM type WHERE id = ?", [body.id])
 
         if (!isExistId[0][0]?.id) {
-            throw new Error('typeId not found')
+            throw ApiError.badRequest('typeId not found')
         }
         const deletedType = await connection.query("DELETE FROM type WHERE id = ?", [body.id])
         return deletedType;

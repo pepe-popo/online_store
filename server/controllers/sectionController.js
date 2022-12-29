@@ -5,24 +5,24 @@ class SectionController {
     create(req, res, next) {
         SectionService.create(req.body)
             .then(data => res.json(data))
-            .catch(error => next(ApiError.badRequest(error.message)))
+            .catch(error => next(error))
     };
 
     delete(req, res, next) {
         SectionService.delete(req.body)
             .then(data => res.json(data))
-            .catch(error => next(ApiError.badRequest(error.message)))
+            .catch(error => next(error))
     }
 
     edit(req, res, next) {
         SectionService.edit(req.body)
             .then(data => res.json(data))
-            .catch(error => next(ApiError.badRequest(error.message)))
+            .catch(error => next(error))
     }
     getAll(req, res) {
         SectionService.getAll()
             .then(data => res.json(data))
-            .catch(error => res.status(500).json(error))
+            .catch(error => next(error))
     }
 }
 

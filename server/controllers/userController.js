@@ -5,19 +5,19 @@ class UserController {
     registration(req, res, next) {
         UserService.registration(req.body)
             .then(token => res.json({ token }))
-            .catch(error => next(ApiError.badRequest(error.message)))
+            .catch(error => next(error))
     }
 
     login(req, res, next) {
         UserService.login(req.body)
             .then(token => res.json({ token }))
-            .catch(error => next(ApiError.badRequest(error.message)));
+            .catch(error => next(error));
     }
 
     check(req, res, next) {
         UserService.check(req)
             .then(token => res.json({ token }))
-            .catch(error => res.status(500).json(error.message))
+            .catch(error => next(error))
     }
 }
 

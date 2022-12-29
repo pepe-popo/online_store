@@ -6,7 +6,7 @@ class DeviceController {
     create(req, res, next) {
         DeviceService.create(req.body)                                               
         .then(data => res.json(data))
-        .catch(error => next(ApiError.badRequest(error.message)))
+        .catch(error => next(error))
     }  
 }
 
