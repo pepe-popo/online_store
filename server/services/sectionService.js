@@ -29,7 +29,7 @@ class SectionService {
 
         const isDuplicateName = await connection.query("SELECT * FROM section WHERE name = ?", body.newName);
         if (isDuplicateName[0][0]) {
-            throw ApiError.badRequest('name taken');
+            throw ApiError.badRequest('name cannot be duplicate');
         }
 
         const isExistName = await connection.query("SELECT * FROM section WHERE id = ?", body.id);

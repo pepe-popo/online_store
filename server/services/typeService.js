@@ -23,7 +23,7 @@ class TypeService {
         const isExistNewName = await connection.query("SELECT name FROM type WHERE name = ?", [body.newName])
 
         if(isExistNewName[0][0]?.name) {
-            throw ApiError.badRequest('name taken')
+            throw ApiError.badRequest('name cannot be duplicate')
         }
 
         const isExistName = await connection.query("SELECT name FROM type WHERE id = ?", [body.id])
